@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DTE Helper - BCD Code</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: #1c1c1c;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #00ffcc;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #00ffcc;
+      text-align: center;
+      flex: 1;
+    }
+
+    .openbtn {
+      position: absolute;
+      left: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      background-color: #00ffcc;
+      color: #111;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .openbtn:hover {
+      background-color: #00cca3;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: calc(100% - 70px);
+      width: 0;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      background: #111;
+      overflow-x: hidden;
+      transition: 0.4s;
+      padding-top: 20px;
+      border-right: 2px solid #00ffcc;
+    }
+
+    .sidebar a {
+      padding: 10px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #ffffff; /* white text */
+      display: block;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .sidebar a:hover {
+      color: #00ffcc;
+    }
+
+    #main {
+      transition: margin-left 0.4s;
+      padding: 20px;
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 100px
+    }
+
+    .heading {
+      text-align: center;
+      padding: 25px;
+      font-size: 1.8rem;
+      color: #00ffcc;
+      border-bottom: 1px solid #00ffcc;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    .box {
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #00ffcc;
+      box-shadow: 0px 0px 20px #00ffcc;
+      text-align: center;
+      flex: 1;
+    }
+
+    .box h2 {
+      color: #00ffcc;
+      margin-bottom: 15px;
+    }
+
+    select, input {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      background: #fff;
+      color: #000;
+      font-size: 1rem;
+      margin: 8px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #00ffcc;
+      color: #1c1c1c;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00cca3;
+    }
+
+    .output {
+      margin-top: 15px;
+      padding: 12px;
+      border: 2px solid #00ffcc;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      color: #000;
+      background: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #1c1c1c;
+      border-top: 2px solid #00ffcc;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+    }
+
+    @media (max-width: 600px) {
+      footer {
+        font-size: 0.9rem;
+        padding: 12px
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="openbtn" onclick="toggleNav()">☰</button>
+    <h1>Chapter-1</h1>
+  </header>
+
+  <div id="mySidebar" class="sidebar">
+    <a href="index.html">Home</a>
+    <a href="NumberSystem.html">Number Converter</a>
+    <a href="BinaryArithmetic.html">Binary Arithmetic</a>
+    <a href="Complements.html">Complements</a>
+    <a href="BCDCode.html">BCD Code</a>
+    <a href="GrayCode.html">Gray Code</a>
+    <a href="Excess-3.html">Excess-3</a>
+  </div>
+
+  <div id="main">
+    <div class="heading">BCD Code Converter</div>
+
+    <div class="container">
+
+      <!-- Converter Box -->
+      <div class="box">
+        <h2>Converter (Decimal → BCD)</h2>
+        <input type="text" id="bcdInput" placeholder="Enter Decimal Number">
+        <button onclick="convertBCD()">Convert</button>
+        <div class="output" id="bcdResult">Result will appear here</div>
+      </div>
+
+      <!-- Operation Box -->
+      <div class="box">
+        <h2>Operation (Add / Sub)</h2>
+        <select id="bcdOpType">
+          <option value="add">Addition</option>
+          <option value="sub">Subtraction</option>
+        </select>
+        <input type="text" id="bcdNum1" placeholder="Enter Decimal Number 1">
+        <input type="text" id="bcdNum2" placeholder="Enter Decimal Number 2">
+        <button onclick="operationBCD()">Calculate</button>
+        <div class="output" id="bcdOpResult">Result will appear here</div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 DTE Helper | BCD Code Page</p>
+  </footer>
+
+  <script>
+    // Sidebar toggle
+    function toggleNav() {
+      const sidebar = document.getElementById("mySidebar");
+      const main = document.getElementById("main");
+      if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0";
+        main.style.marginLeft = "0";
+      } else {
+        sidebar.style.width = "250px";
+        main.style.marginLeft = "250px";
+      }
+    }
+
+    // Convert Decimal to BCD
+    function decimalToBCD(num) {
+      return num.toString().split("").map(d => {
+        let bin = parseInt(d).toString(2);
+        return bin.padStart(4, "0");
+      }).join(" ");
+    }
+
+    function convertBCD() {
+      let val = document.getElementById("bcdInput").value.trim();
+      if (isNaN(val) || val === "") {
+        document.getElementById("bcdResult").innerText = "Enter valid decimal number";
+        return;
+      }
+      document.getElementById("bcdResult").innerText = decimalToBCD(parseInt(val));
+    }
+
+    function operationBCD() {
+      let n1 = document.getElementById("bcdNum1").value.trim();
+      let n2 = document.getElementById("bcdNum2").value.trim();
+      let op = document.getElementById("bcdOpType").value;
+
+      if (isNaN(n1) || isNaN(n2) || n1 === "" || n2 === "") {
+        document.getElementById("bcdOpResult").innerText = "Enter valid decimal numbers";
+        return;
+      }
+
+      let a = parseInt(n1);
+      let b = parseInt(n2);
+      let result = (op === "add") ? (a + b) : (a - b);
+      document.getElementById("bcdOpResult").innerText = decimalToBCD(result);
+    }
+  </script>
+
+</body>
+
+</html>
